@@ -1,5 +1,6 @@
+#!/usr/bin/perl
+
 use strict;
-use warnings;
 
 use String::ShowDiff qw/ansi_colored_diff/;
 use Term::ANSIColor qw/:constants uncolor colored/;
@@ -11,19 +12,19 @@ use constant TEST_STRINGS => (
 
 use constant TEST_OPTIONS => map {[$_->[0], [split //, $_->[1]], [split //, $_->[2]]]}
 (
-    [{context => qr/.*/, gap => ''},
+    [{context => '.*', gap => ''},
      "Honsestiye is for the most part less profitable than dishonesty. -- Plato",
      "uuu-u+u-+-uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu+uuuuuuuuuuuuuuuuuuuuuu+++++++++"
     ],
-    [{context => qr/.*/, gap => 'this should not be visible'},
+    [{context => '.*', gap => 'this should not be visible'},
      "Honsestiye is for the most part less profitable than dishonesty. -- Plato",
      "uuu-u+u-+-uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu+uuuuuuuuuuuuuuuuuuuuuu+++++++++"
     ],
-    [{context => qr/.{0,3}/, gap => ' ... '},
+    [{context => '.{0,3}', gap => ' ... '},
      "Honsestiye is ... rofitab ... ty. -- Plato",
      "uuu-u+u-+-uuuuuuuuuuu+uuuuuuuuuuu+++++++++"
     ],
-    [{context => qr/\w*/, gap => ' '},
+    [{context => '\w*', gap => ' '},
      "Honsestiye profitable  -- Plato",
      "uuu-u+u-+-uuuuu+uuuuuu+++++++++"
     ],

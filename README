@@ -1,4 +1,4 @@
-String/ShowDiff version 0.02
+String/ShowDiff version 0.03
 ============================
 
 NAME
@@ -13,8 +13,10 @@ SYNOPSIS
   # or a bit more detailed:
   my %options = ('u' => 'reset',
                  '+' => 'on_green',
-		         '-' => 'on_red');
+		 '-' => 'on_red');
   print ansi_colored_diff($oldstring, $newstring, \%options);
+
+  # of course, you can also set the what context shall be shown
 
 DESCRIPTION
 

@@ -1,26 +1,26 @@
 package String::ShowDiff;
 
-use 5.006;
 use strict;
-use warnings;
 
 require Exporter;
 
-our @ISA = qw(Exporter);
+use vars qw/@ISA %EXPORT_TAGS @EXPORT_OK @EXPORT $VERSION/;
 
-our %EXPORT_TAGS = ( 'all' => [ qw(
+@ISA = qw(Exporter);
+
+%EXPORT_TAGS = ( 'all' => [ qw(
     ansi_colored_diff
 ) ] );
 
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
+@EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw(
+@EXPORT = qw(
 	
 );
 
-our $VERSION = '0.02';
+$VERSION = '0.03';
 
-use Algorithm::Diff;
+use Algorithm::Diff qw/sdiff/;
 use Term::ANSIColor qw/colored/;
 
 sub ansi_colored_diff {
@@ -34,7 +34,7 @@ sub ansi_colored_diff {
     my $context_re = $options->{context} || qr/.*/;
     my $gap        = $options->{gap}     || '';
     
-    my @sdiff = Algorithm::Diff::sdiff(map {[split //, $_]} $string, $changed_string);
+    my @sdiff = sdiff(map {[split //, $_]} $string, $changed_string);
     my @ansi;
     my $first_while_loop = 1;
     while (@sdiff and my ($mod, $s1, $s2) = @{shift @sdiff}) {
@@ -149,7 +149,8 @@ C<colored> method of L<Term::ANSIColor>.
 Please read its documentation for details.
 
 The specified context must be a valid regexp, constructed with the 
-C<qr/.../> operator. Internal the context around a changing is created with 
+C<qr/.../> operator (or alternatively a string defining a valid regexp). 
+Internal the context around a changing is created with 
 matching the preceding substring with C</($context_re)$> and the succeeding
 substring with C<^($context_re)>. That is important to know if you want to work
 with backreferences. As an additional group encloses your regexp pattern, the

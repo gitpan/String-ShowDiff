@@ -1,5 +1,5 @@
+#!/usr/bin/perl
 use strict;
-use warnings;
 
 use String::ShowDiff qw/ansi_colored_diff/;
 use Term::ANSIColor qw/:constants uncolor colored/;
